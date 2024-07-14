@@ -8,19 +8,19 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: homeserver
     permissions:
       contents: read
     steps:
-    - name: Checkout Repository
+    - name: Set up Repository
       uses: actions/checkout@v4
-    - name: Setup Java
-      uses: actions/setup-java@v4
+    - name: Set up Java
+      uses: actions/Set up-java@v4
       with:
         java-version: '21'
         distribution: 'temurin'
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+    - name: Set up Gradle
+      uses: gradle/actions/Set up-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
       with:
        gradle-version: '8.9'
     - name: Build
@@ -32,10 +32,10 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-    - name: Setup Java
-      uses: actions/setup-java@v4
+    - name: Set up Java
+      uses: actions/Set up-java@v4
       with:
-        java-version: '17'
+        java-version: '21'
         distribution: 'temurin'
     - name: Generate and submit dependency graph
       uses: gradle/actions/dependency-submission@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
