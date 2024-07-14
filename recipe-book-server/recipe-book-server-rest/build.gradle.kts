@@ -43,6 +43,12 @@ tasks {
             events = setOf(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
         }
     }
+    jar {
+	mustRunAfter(generateOpenApiDocs)
+    }
+    bootJar {
+        mustRunAfter(generateOpenApiDocs)
+    }
     compileJava {
         mustRunAfter(":recipe-book-server:recipe-book-server-data:jar")
     }
