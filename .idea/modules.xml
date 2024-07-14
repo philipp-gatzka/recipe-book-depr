@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/recipe-book-server/recipe-book-server-data/recipe-book.recipe-book-server.recipe-book-server-data.main.iml" filepath="$PROJECT_DIR$/.idea/modules/recipe-book-server/recipe-book-server-data/recipe-book.recipe-book-server.recipe-book-server-data.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/recipe-book-server/recipe-book-server-rest/recipe-book.recipe-book-server.recipe-book-server-rest.iml" filepath="$PROJECT_DIR$/.idea/modules/recipe-book-server/recipe-book-server-rest/recipe-book.recipe-book-server.recipe-book-server-rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/recipe-book-server/recipe-book-server-rest/recipe-book.recipe-book-server.recipe-book-server-rest.main.iml" filepath="$PROJECT_DIR$/.idea/modules/recipe-book-server/recipe-book-server-rest/recipe-book.recipe-book-server.recipe-book-server-rest.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/recipe-book-server/recipe-book-server-rest/recipe-book.recipe-book-server.recipe-book-server-rest.test.iml" filepath="$PROJECT_DIR$/.idea/modules/recipe-book-server/recipe-book-server-rest/recipe-book.recipe-book-server.recipe-book-server-rest.test.iml" />
+    </modules>
+  </component>
+</project>

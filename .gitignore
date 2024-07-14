@@ -1,0 +1,13 @@
+/.gradle
+/gradle
+/recipe-book-server/recipe-book-server-adapter/*
+/recipe-book-server/recipe-book-server-data/build
+/recipe-book-server/recipe-book-server-rest/build
+/recipe-book-server/recipe-book-server-rest/logs
+
+/gradlew
+/gradlew.bat
+!/recipe-book-server/recipe-book-server-adapter/.openapi-generator-ignore
+!/recipe-book-server/recipe-book-server-adapter/build.gradle
+
+
