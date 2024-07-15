@@ -26,6 +26,10 @@ public class JwtService {
     @Value("${security.jwt.lifetime}")
     private long lifetime;
 
+    private String extractToken(String bearerToken) {
+        return bearerToken.substring(7);
+    }
+
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -82,6 +86,5 @@ public class JwtService {
         byte[] bytes = Decoders.BASE64.decode(secret);
         return Keys.hmacShaKeyFor(bytes);
     }
-
 
 }
