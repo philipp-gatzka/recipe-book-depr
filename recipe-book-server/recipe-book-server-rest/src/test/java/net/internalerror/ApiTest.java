@@ -6,8 +6,11 @@ import com.icegreen.greenmail.util.ServerSetupTest;
 import jakarta.mail.internet.MimeMessage;
 import lombok.SneakyThrows;
 import net.internalerror.controller.AuthController;
+import net.internalerror.controller.RecipeBookController;
 import net.internalerror.controller.UserController;
 import net.internalerror.endpoint.AuthEndpoint;
+import net.internalerror.repository.RecipeBookMembershipRepository;
+import net.internalerror.repository.RecipeBookRepository;
 import net.internalerror.repository.UserRepository;
 import org.jooq.DSLContext;
 import org.jooq.Queries;
@@ -27,7 +30,7 @@ import java.sql.Statement;
 import java.util.Objects;
 import java.util.UUID;
 
-import static net.internalerror.Tables.USER;
+import static net.internalerror.Tables.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -40,7 +43,16 @@ public class ApiTest {
     protected UserController userController;
 
     @Autowired
+    protected RecipeBookController recipeBookController;
+
+    @Autowired
     protected UserRepository userRepository;
+
+    @Autowired
+    protected RecipeBookRepository recipeBookRepository;
+
+    @Autowired
+    protected RecipeBookMembershipRepository recipeBookMembershipRepository;
 
     @Autowired
     private DSLContext dslContext;
@@ -125,7 +137,7 @@ public class ApiTest {
 
     @AfterEach
     public void dropDatabase() {
-        Table<?>[] tables = {USER,};
+        Table<?>[] tables = {RECIPE_BOOK_MEMBERSHIP, RECIPE_BOOK, USER};
 
         for (Table<?> table : tables) {
             dslContext.dropTable(table).execute();

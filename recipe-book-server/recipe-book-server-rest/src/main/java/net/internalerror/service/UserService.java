@@ -28,8 +28,6 @@ public class UserService implements UserEndpoint {
                         .setLastname(StringUtils.hasText(request.lastname()) ? request.lastname() : entry.getLastname()),
                 USER.ID.eq(user.getId())
         );
-        User usern = jwtService.extractUser(token);
-        log.info(usern.toString());
     }
 
 

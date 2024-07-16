@@ -25,5 +25,4 @@ public class UserController implements UserEndpoint {
         userService.update(token, request);
     }
 
-
 }
