@@ -2,7 +2,6 @@ rootProject.name = "recipe-book"
 
 include(":recipe-book-server:recipe-book-server-data")
 include(":recipe-book-server:recipe-book-server-rest")
-include(":recipe-book-server:recipe-book-server-adapter")
 
 dependencyResolutionManagement {
     versionCatalogs {
