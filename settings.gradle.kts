@@ -16,6 +16,7 @@ dependencyResolutionManagement {
             plugin("spring-boot", "org.springframework.boot").versionRef("spring-boot")
             plugin("openapi-generator", "org.openapi.generator").version("7.7.0")
             plugin("openapi-spec", "org.springdoc.openapi-gradle-plugin").version("1.9.0")
+            plugin("sonarcloud", "org.sonarqube").version("4.4.1.3373")
 
             library("h2", "com.h2database", "h2").version("2.2.224")
             library("jooq", "org.jooq", "jooq").versionRef("jooq")
