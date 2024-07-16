@@ -3,6 +3,7 @@ package net.internalerror;
 import org.jooq.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 public abstract class CrudRepository<R extends UpdatableRecord<R>, C> {
@@ -23,7 +24,7 @@ public abstract class CrudRepository<R extends UpdatableRecord<R>, C> {
     }
 
     public C insert(Function<R, R> mapping) {
-        return dslContext.insertInto(table).set(mapping.apply(dslContext.newRecord(table))).returningResult(idField).fetchOne().into(idClazz);
+        return Objects.requireNonNull(dslContext.insertInto(table).set(mapping.apply(dslContext.newRecord(table))).returningResult(idField).fetchOne()).into(idClazz);
     }
 
     public R get(C id) {

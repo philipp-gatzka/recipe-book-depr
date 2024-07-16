@@ -19,8 +19,10 @@ dependencyResolutionManagement {
 
             library("h2", "com.h2database", "h2").version("2.2.224")
             library("jooq", "org.jooq", "jooq").versionRef("jooq")
+            library("greenmail", "com.icegreen", "greenmail").version("2.0.1")
             library("jooq-meta", "org.jooq", "jooq-meta-extensions").versionRef("jooq")
             library("spring-boot-web", "org.springframework.boot", "spring-boot-starter-web").versionRef("spring-boot")
+            library("spring-boot-mail", "org.springframework.boot", "spring-boot-starter-mail").versionRef("spring-boot")
             library("spring-boot-validation", "org.springframework.boot", "spring-boot-starter-validation").versionRef("spring-boot")
             library("spring-boot-security", "org.springframework.boot", "spring-boot-starter-security").versionRef("spring-boot")
             library("spring-boot-test", "org.springframework.boot", "spring-boot-starter-test").versionRef("spring-boot")

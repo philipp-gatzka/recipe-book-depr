@@ -1,6 +1,7 @@
 package net.internalerror.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.internalerror.endpoint.AuthEndpoint;
 import net.internalerror.repository.UserRepository;
 import net.internalerror.security.JwtService;
@@ -11,8 +12,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 import static net.internalerror.Tables.USER;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService implements AuthEndpoint {
@@ -25,15 +29,27 @@ public class AuthService implements AuthEndpoint {
 
     private final AuthenticationManager authenticationManager;
 
+    private final EmailService emailService;
+
+
     @Override
     public void register(RegisterRequest request) {
-        userRepository.insert(entry -> {
-            entry.setFirstname(request.firstname());
-            entry.setLastname(request.lastname());
-            entry.setEmail(request.email());
-            entry.setPassword(passwordEncoder.encode(request.password()));
-            return entry;
-        });
+        String code = UUID.randomUUID().toString();
+        userRepository.insert(entry -> entry
+                .setFirstname(request.firstname())
+                .setLastname(request.lastname())
+                .setEmail(request.email())
+                .setPassword(passwordEncoder.encode(request.password()))
+                .setEmailVerificationCode(passwordEncoder.encode(code))
+        );
+
+        emailService.sendEmail(request.email(), "Verify Email", "Verification Code: " + code);
+        userRepository.update(entry -> entry.setPasswordResetCode(passwordEncoder.encode(code)), USER.EMAIL.eq(request.email()));
+    }
+
+    @Override
+    public void verifyEmail(VerifyEmailRequest request) {
+        userRepository.update(entry -> entry.setEmailVerificationCode(null), USER.EMAIL.eq(request.email()));
     }
 
     @Override
@@ -44,5 +60,19 @@ public class AuthService implements AuthEndpoint {
 
         return ResponseEntity.ok().body(new LoginResponse(token));
     }
+
+    @Override
+    public void requestUpdatePassword(RequestUpdatePasswordRequest request) {
+        String code = UUID.randomUUID().toString();
+        userRepository.update(entry -> entry.setPasswordResetCode(passwordEncoder.encode(code)), USER.EMAIL.eq(request.email()));
+        log.info(code);
+        emailService.sendEmail(request.email(), "Reset Password", "Password reset code: " + code);
+    }
+
+    @Override
+    public void updatePassword(UpdatePasswordRequest request) {
+        userRepository.update(entry -> entry.setPassword(request.password()).setPasswordResetCode(null), USER.EMAIL.eq(request.email()));
+    }
+
 
 }

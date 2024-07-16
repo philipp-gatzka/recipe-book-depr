@@ -22,12 +22,14 @@ dependencies {
     implementation(libs.jwt.jackson)
     implementation(libs.spring.boot.web)
     implementation(libs.spring.boot.security)
+    implementation(libs.spring.boot.mail)
     implementation(libs.jetbrains.annotations)
     implementation(libs.spring.boot.validation)
     implementation(project(":recipe-book-server:recipe-book-server-data"))
 
     testRuntimeOnly(libs.h2)
 
+    testImplementation(libs.greenmail)
     testImplementation(libs.spring.boot.test)
 }
 

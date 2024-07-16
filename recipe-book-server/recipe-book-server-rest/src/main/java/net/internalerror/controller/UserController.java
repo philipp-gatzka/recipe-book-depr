@@ -18,15 +18,10 @@ import static net.internalerror.Tables.USER;
 @RequiredArgsConstructor
 public class UserController implements UserEndpoint {
 
-    private final UserRepository userRepository;
-
     private final UserService userService;
 
     @Override
     public void update(String token, UpdateUserRequest request) {
-        if (userRepository.exists(USER.EMAIL.eq(request.email()))){
-            throw new BadRequestException(Messages.EMAIL_IS_ALREADY_REGISTERED);
-        }
         userService.update(token, request);
     }
 

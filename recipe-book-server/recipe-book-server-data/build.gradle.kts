@@ -54,6 +54,9 @@ jooq {
             target {
                 packageName = "net.internalerror"
             }
+            generate {
+                isFluentSetters = true
+            }
         }
     }
 }

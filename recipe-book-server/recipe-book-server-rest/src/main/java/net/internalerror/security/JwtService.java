@@ -5,7 +5,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import net.internalerror.configuration.SecurityConfiguration;
+import net.internalerror.repository.UserRepository;
 import net.internalerror.tables.records.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +19,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import static net.internalerror.Tables.USER;
+
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
     @Value("${security.jwt.secret}")
@@ -26,8 +31,11 @@ public class JwtService {
     @Value("${security.jwt.lifetime}")
     private long lifetime;
 
-    private String extractToken(String bearerToken) {
-        return bearerToken.substring(7);
+    private final UserRepository userRepository;
+
+    public User extractUser(String token) {
+        String email = extractEmail(token);
+        return userRepository.get(USER.EMAIL.eq(email));
     }
 
     public String extractEmail(String token) {
