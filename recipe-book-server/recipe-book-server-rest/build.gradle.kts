@@ -42,4 +42,9 @@ tasks {
             events = setOf(TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED)
         }
     }
+    jacocoTestReport {
+        reports {
+            xml.required = true
+        }
+    }
 }
