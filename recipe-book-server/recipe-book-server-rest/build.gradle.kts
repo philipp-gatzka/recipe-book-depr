@@ -58,5 +58,6 @@ sonar {
         property("sonar.projectKey", "net.internalerror:recipe-book-server-rest")
         property("sonar.organization", "philipp-gatzka")
         property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.junit.reportPaths", "build/test-results")
     }
 }
