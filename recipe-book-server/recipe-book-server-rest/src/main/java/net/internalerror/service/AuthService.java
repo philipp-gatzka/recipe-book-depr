@@ -16,7 +16,6 @@ import java.util.UUID;
 
 import static net.internalerror.Tables.USER;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService implements AuthEndpoint {
@@ -65,7 +64,6 @@ public class AuthService implements AuthEndpoint {
     public void requestUpdatePassword(RequestUpdatePasswordRequest request) {
         String code = UUID.randomUUID().toString();
         userRepository.update(entry -> entry.setPasswordResetCode(passwordEncoder.encode(code)), USER.EMAIL.eq(request.email()));
-        log.info(code);
         emailService.sendEmail(request.email(), "Reset Password", "Password reset code: " + code);
     }
 

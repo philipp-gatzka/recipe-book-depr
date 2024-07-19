@@ -19,8 +19,8 @@ public class RecipeBookServiceTest extends ApiTest {
     void givenAuthenticatedUser_whenCreate_thenRecipeBookShouldBeCreated() {
         AuthenticatedUser authenticatedUser = createAuthenticatedUser();
 
-        RecipeBookEndpoint.CreateRecipeBookRequest request = new RecipeBookEndpoint.CreateRecipeBookRequest(string(20));
-        ResponseEntity<RecipeBookEndpoint.CreateRecipeBookResponse> response = recipeBookController.create(authenticatedUser.token(), request);
+        RecipeBookEndpoint.CreateRequest request = new RecipeBookEndpoint.CreateRequest(string(20));
+        ResponseEntity<RecipeBookEndpoint.CreateResponse> response = recipeBookController.create(authenticatedUser.token(), request);
 
         assertEquals(request.name(), recipeBookRepository.get(RECIPE_BOOK.IDENTIFIER.eq(Objects.requireNonNull(response.getBody()).identifier())).getName());
 

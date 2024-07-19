@@ -1,5 +1,7 @@
 rootProject.name = "recipe-book"
 
+System.setProperty("sonar.gradle.skipCompile", "true")
+
 include(":recipe-book-server:recipe-book-server-data")
 include(":recipe-book-server:recipe-book-server-rest")
 

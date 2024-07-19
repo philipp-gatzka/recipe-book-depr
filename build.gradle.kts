@@ -20,3 +20,7 @@ subprojects {
         mavenCentral()
     }
 }
+
+tasks.named("sonar") {
+    dependsOn("compileJava")
+}

@@ -9,7 +9,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/recipe-book-server" />
-            <option value="$PROJECT_DIR$/recipe-book-server/recipe-book-server-adapter" />
             <option value="$PROJECT_DIR$/recipe-book-server/recipe-book-server-data" />
             <option value="$PROJECT_DIR$/recipe-book-server/recipe-book-server-rest" />
           </set>

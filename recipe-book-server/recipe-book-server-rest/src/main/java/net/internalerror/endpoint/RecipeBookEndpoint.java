@@ -4,24 +4,38 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
-import static net.internalerror.Messages.NAME_CANNOT_BE_EMPTY;
-import static net.internalerror.Messages.NAME_CANNOT_BE_LONGER_THAN_50_CHARACTERS;
+import static net.internalerror.Messages.*;
 
 public interface RecipeBookEndpoint {
 
     @PutMapping
-    ResponseEntity<CreateRecipeBookResponse> create(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody @Valid CreateRecipeBookRequest request);
+    ResponseEntity<CreateResponse> create(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody @Valid RecipeBookEndpoint.CreateRequest request);
 
-    record CreateRecipeBookRequest(@NotEmpty(message = NAME_CANNOT_BE_EMPTY) @Length(message = NAME_CANNOT_BE_LONGER_THAN_50_CHARACTERS, max = 50) String name) {
+    record CreateRequest(
+            @NotEmpty(message = NAME_CANNOT_BE_EMPTY) @Length(message = NAME_CANNOT_BE_LONGER_THAN_50_CHARACTERS, max = 50) String name) {
 
     }
 
-    record CreateRecipeBookResponse(String identifier){
+    record CreateResponse(String identifier) {
+
+    }
+
+    @PatchMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    void rename(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody @Valid RecipeBookEndpoint.RenameRequest request);
+
+    record RenameRequest(@NotEmpty(message = IDENTIFIER_CANNOT_BE_EMPTY) String identifier,
+                         @NotEmpty(message = NAME_CANNOT_BE_EMPTY) @Length(message = NAME_CANNOT_BE_LONGER_THAN_50_CHARACTERS, max = 50) String name) {
+
+    }
+
+    @DeleteMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    void delete(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody @Valid DeleteRecipeBookRequest request);
+
+    record DeleteRecipeBookRequest(@NotEmpty(message = IDENTIFIER_CANNOT_BE_EMPTY) String identifier) {
 
     }
 }

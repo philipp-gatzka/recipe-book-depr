@@ -9,6 +9,7 @@ import net.internalerror.controller.AuthController;
 import net.internalerror.controller.RecipeBookController;
 import net.internalerror.controller.UserController;
 import net.internalerror.endpoint.AuthEndpoint;
+import net.internalerror.endpoint.RecipeBookEndpoint;
 import net.internalerror.repository.RecipeBookMembershipRepository;
 import net.internalerror.repository.RecipeBookRepository;
 import net.internalerror.repository.UserRepository;
@@ -117,6 +118,16 @@ public class ApiTest {
 
     }
 
+    protected TestRecipeBook createTestRecipeBook(AuthenticatedUser authenticatedUser) {
+        RecipeBookEndpoint.CreateRequest request = new RecipeBookEndpoint.CreateRequest(string(10));
+        ResponseEntity<RecipeBookEndpoint.CreateResponse> response = recipeBookController.create(authenticatedUser.token, request);
+        return new TestRecipeBook(request.name(), Objects.requireNonNull(response.getBody()).identifier());
+    }
+
+    protected record TestRecipeBook(String name, String identifier) {
+
+    }
+
     @BeforeEach
     @SneakyThrows
     @SuppressWarnings("all")
@@ -137,17 +148,13 @@ public class ApiTest {
 
     @AfterEach
     public void dropDatabase() {
-        Table<?>[] tables = {RECIPE_BOOK_MEMBERSHIP, RECIPE_BOOK, USER};
+        Table<?>[] tables = {INGREDIENT, RECIPE_BOOK_MEMBERSHIP, RECIPE_BOOK, USER};
 
         for (Table<?> table : tables) {
             dslContext.dropTable(table).execute();
         }
 
         greenMail.stop();
-    }
-
-    protected record TestUser(String email, String password) {
-
     }
 
 }
