@@ -1,7 +1,7 @@
 package net.internalerror.controller;
 
 import net.internalerror.ApiTest;
-import net.internalerror.endpoint.AuthEndpoint;
+import net.internalerror.rest.endpoint.AuthEndpoint;
 import net.internalerror.exception.BadRequestException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

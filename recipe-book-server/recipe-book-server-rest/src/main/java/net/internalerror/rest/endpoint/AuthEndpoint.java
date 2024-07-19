@@ -1,4 +1,4 @@
-package net.internalerror.endpoint;
+package net.internalerror.rest.endpoint;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -17,18 +17,6 @@ public interface AuthEndpoint {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     void register(@RequestBody @Valid RegisterRequest request);
 
-    @PutMapping(value = "verify", consumes = MediaType.APPLICATION_JSON_VALUE)
-    void verifyEmail(@RequestBody @Valid VerifyEmailRequest request);
-
-    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest request);
-
-    @GetMapping("update-password")
-    void requestUpdatePassword(@RequestBody @Valid RequestUpdatePasswordRequest request);
-
-    @PatchMapping("update-password")
-    void updatePassword(@RequestBody @Valid UpdatePasswordRequest request);
-
     record RegisterRequest(
             @NotEmpty(message = FIRSTNAME_CANNOT_BE_EMPTY) @Length(message = FIRSTNAME_CANNOT_BE_LONGER_THAN_50_CHARACTERS, max = 50) String firstname,
             @NotEmpty(message = LASTNAME_CANNOT_BE_EMPTY) @Length(message = LASTNAME_CANNOT_BE_LONGER_THAN_50_CHARACTERS, max = 50) String lastname,
@@ -37,27 +25,39 @@ public interface AuthEndpoint {
 
     }
 
+    @PutMapping(value = "verify", consumes = MediaType.APPLICATION_JSON_VALUE)
+    void verifyEmail(@RequestBody @Valid VerifyEmailRequest request);
+
     record VerifyEmailRequest(@NotEmpty(message = EMAIL_CANNOT_BE_EMPTY) String email,
                               @NotEmpty(message = EMAIL_VERIFICATION_CODE_CANNOT_BE_EMPTY) String code) {
 
     }
+
+    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest request);
 
     record LoginRequest(@NotEmpty(message = EMAIL_CANNOT_BE_EMPTY) String email,
                         @NotEmpty(message = PASSWORD_CANNOT_BE_EMPTY) String password) {
 
     }
 
-    record UpdatePasswordRequest(@NotEmpty(message = EMAIL_CANNOT_BE_EMPTY) String email,
-                                 @NotEmpty(message = PASSWORD_RESET_CODE_CANNOT_BE_EMPTY) String code,
-                                 @NotEmpty(message = PASSWORD_CANNOT_BE_EMPTY) String password) {
+    record LoginResponse(String token) {
 
     }
+
+    @GetMapping("update-password")
+    void requestUpdatePassword(@RequestBody @Valid RequestUpdatePasswordRequest request);
 
     record RequestUpdatePasswordRequest(@NotEmpty(message = EMAIL_CANNOT_BE_EMPTY) String email) {
 
     }
 
-    record LoginResponse(String token) {
+    @PatchMapping("update-password")
+    void updatePassword(@RequestBody @Valid UpdatePasswordRequest request);
+
+    record UpdatePasswordRequest(@NotEmpty(message = EMAIL_CANNOT_BE_EMPTY) String email,
+                                 @NotEmpty(message = PASSWORD_RESET_CODE_CANNOT_BE_EMPTY) String code,
+                                 @NotEmpty(message = PASSWORD_CANNOT_BE_EMPTY) String password) {
 
     }
 

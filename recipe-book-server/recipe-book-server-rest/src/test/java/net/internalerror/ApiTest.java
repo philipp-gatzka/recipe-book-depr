@@ -5,11 +5,9 @@ import com.icegreen.greenmail.util.GreenMailUtil;
 import com.icegreen.greenmail.util.ServerSetupTest;
 import jakarta.mail.internet.MimeMessage;
 import lombok.SneakyThrows;
-import net.internalerror.controller.AuthController;
-import net.internalerror.controller.RecipeBookController;
-import net.internalerror.controller.UserController;
-import net.internalerror.endpoint.AuthEndpoint;
-import net.internalerror.endpoint.RecipeBookEndpoint;
+import net.internalerror.rest.controller.AuthController;
+import net.internalerror.rest.controller.UserController;
+import net.internalerror.rest.endpoint.AuthEndpoint;
 import net.internalerror.repository.RecipeBookMembershipRepository;
 import net.internalerror.repository.RecipeBookRepository;
 import net.internalerror.repository.UserRepository;
@@ -42,10 +40,6 @@ public class ApiTest {
 
     @Autowired
     protected UserController userController;
-
-    @Autowired
-    protected RecipeBookController recipeBookController;
-
     @Autowired
     protected UserRepository userRepository;
 
@@ -118,15 +112,6 @@ public class ApiTest {
 
     }
 
-    protected TestRecipeBook createTestRecipeBook(AuthenticatedUser authenticatedUser) {
-        RecipeBookEndpoint.CreateRequest request = new RecipeBookEndpoint.CreateRequest(string(10));
-        ResponseEntity<RecipeBookEndpoint.CreateResponse> response = recipeBookController.create(authenticatedUser.token, request);
-        return new TestRecipeBook(request.name(), Objects.requireNonNull(response.getBody()).identifier());
-    }
-
-    protected record TestRecipeBook(String name, String identifier) {
-
-    }
 
     @BeforeEach
     @SneakyThrows

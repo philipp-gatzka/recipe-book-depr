@@ -1,12 +1,12 @@
-package net.internalerror.controller;
+package net.internalerror.rest.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.internalerror.endpoint.AuthEndpoint;
+import net.internalerror.rest.endpoint.AuthEndpoint;
 import net.internalerror.exception.BadRequestException;
 import net.internalerror.helper.DataHelper;
 import net.internalerror.repository.UserRepository;
-import net.internalerror.service.AuthService;
+import net.internalerror.rest.service.AuthService;
 import net.internalerror.tables.records.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;

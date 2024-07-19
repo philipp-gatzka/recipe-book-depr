@@ -4,7 +4,7 @@ import com.icegreen.greenmail.util.GreenMailUtil;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import net.internalerror.ApiTest;
-import net.internalerror.endpoint.AuthEndpoint;
+import net.internalerror.rest.endpoint.AuthEndpoint;
 import net.internalerror.tables.records.User;
 import org.junit.jupiter.api.Test;
 

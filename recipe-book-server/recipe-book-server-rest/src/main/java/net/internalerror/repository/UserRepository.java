@@ -14,4 +14,13 @@ public class UserRepository extends CrudRepository<User, Integer> {
         super(dslContext, USER, USER.ID, Integer.class);
     }
 
+    public boolean existsByEmail(String email) {
+        return exists(USER.EMAIL.eq(email));
+    }
+
+    public User getByEmail(String email) {
+        return get(USER.EMAIL.eq(email));
+    }
+
+
 }

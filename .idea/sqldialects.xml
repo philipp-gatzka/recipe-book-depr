@@ -3,8 +3,6 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/recipe-book-server/recipe-book-server-data/src/main/resources/0_schema.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/recipe-book-server/recipe-book-server-data/src/main/resources/tables/1_user.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/recipe-book-server/recipe-book-server-data/src/main/resources/tables/2_recipe_book.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/recipe-book-server/recipe-book-server-data/src/main/resources/tables/3_recipe_book_membership.sql" dialect="MySQL" />
     <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>

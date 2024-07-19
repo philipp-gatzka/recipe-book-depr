@@ -1,7 +1,7 @@
 package net.internalerror.service;
 
 import net.internalerror.ApiTest;
-import net.internalerror.endpoint.UserEndpoint;
+import net.internalerror.rest.endpoint.UserEndpoint;
 import net.internalerror.tables.records.User;
 import org.junit.jupiter.api.Test;
 

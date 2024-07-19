@@ -1,8 +1,8 @@
-package net.internalerror.service;
+package net.internalerror.rest.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.internalerror.endpoint.UserEndpoint;
+import net.internalerror.rest.endpoint.UserEndpoint;
 import net.internalerror.repository.UserRepository;
 import net.internalerror.security.JwtService;
 import net.internalerror.tables.records.User;

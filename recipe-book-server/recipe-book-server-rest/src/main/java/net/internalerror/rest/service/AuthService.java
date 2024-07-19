@@ -1,8 +1,8 @@
-package net.internalerror.service;
+package net.internalerror.rest.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import net.internalerror.endpoint.AuthEndpoint;
+import net.internalerror.rest.endpoint.AuthEndpoint;
+import net.internalerror.helper.EmailHelper;
 import net.internalerror.repository.UserRepository;
 import net.internalerror.security.JwtService;
 import net.internalerror.tables.records.User;
@@ -28,7 +28,7 @@ public class AuthService implements AuthEndpoint {
 
     private final AuthenticationManager authenticationManager;
 
-    private final EmailService emailService;
+    private final EmailHelper emailHelper;
 
 
     @Override
@@ -42,7 +42,7 @@ public class AuthService implements AuthEndpoint {
                 .setEmailVerificationCode(passwordEncoder.encode(code))
         );
 
-        emailService.sendEmail(request.email(), "Verify Email", "Verification Code: " + code);
+        emailHelper.sendEmail(request.email(), "Verify Email", "Verification Code: " + code);
         userRepository.update(entry -> entry.setPasswordResetCode(passwordEncoder.encode(code)), USER.EMAIL.eq(request.email()));
     }
 
@@ -64,7 +64,7 @@ public class AuthService implements AuthEndpoint {
     public void requestUpdatePassword(RequestUpdatePasswordRequest request) {
         String code = UUID.randomUUID().toString();
         userRepository.update(entry -> entry.setPasswordResetCode(passwordEncoder.encode(code)), USER.EMAIL.eq(request.email()));
-        emailService.sendEmail(request.email(), "Reset Password", "Password reset code: " + code);
+        emailHelper.sendEmail(request.email(), "Reset Password", "Password reset code: " + code);
     }
 
     @Override

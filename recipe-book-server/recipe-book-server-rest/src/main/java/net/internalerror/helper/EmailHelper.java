@@ -1,4 +1,4 @@
-package net.internalerror.service;
+package net.internalerror.helper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class EmailService {
+public class EmailHelper {
     private final JavaMailSender mailSender;
 
     @Value("${spring.mail.username}")

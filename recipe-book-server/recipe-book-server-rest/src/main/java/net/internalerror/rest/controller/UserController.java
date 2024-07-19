@@ -1,16 +1,11 @@
-package net.internalerror.controller;
+package net.internalerror.rest.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.internalerror.Messages;
-import net.internalerror.endpoint.UserEndpoint;
-import net.internalerror.exception.BadRequestException;
-import net.internalerror.repository.UserRepository;
-import net.internalerror.service.UserService;
+import net.internalerror.rest.endpoint.UserEndpoint;
+import net.internalerror.rest.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import static net.internalerror.Tables.USER;
 
 @Slf4j
 @RestController
