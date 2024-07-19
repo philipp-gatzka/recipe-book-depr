@@ -4,6 +4,7 @@ plugins {
     id("java")
     id("jacoco")
     alias(libs.plugins.lombok)
+    alias(libs.plugins.sonarcloud)
     alias(libs.plugins.spring.boot)
 }
 
@@ -46,5 +47,16 @@ tasks {
         reports {
             xml.required = true
         }
+    }
+    named("sonar") {
+        dependsOn(compileJava)
+    }
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "net.internalerror:recipe-book-server-rest")
+        property("sonar.organization", "philipp-gatzka")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
