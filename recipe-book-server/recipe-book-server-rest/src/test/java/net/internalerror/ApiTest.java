@@ -8,7 +8,7 @@ import lombok.SneakyThrows;
 import net.internalerror.rest.controller.AuthController;
 import net.internalerror.rest.controller.UserController;
 import net.internalerror.rest.endpoint.AuthEndpoint;
-import net.internalerror.repository.RecipeBookMembershipRepository;
+import net.internalerror.repository.RecipeBookMemberRepository;
 import net.internalerror.repository.RecipeBookRepository;
 import net.internalerror.repository.UserRepository;
 import org.jooq.DSLContext;
@@ -47,7 +47,7 @@ public class ApiTest {
     protected RecipeBookRepository recipeBookRepository;
 
     @Autowired
-    protected RecipeBookMembershipRepository recipeBookMembershipRepository;
+    protected RecipeBookMemberRepository recipeBookMemberRepository;
 
     @Autowired
     private DSLContext dslContext;

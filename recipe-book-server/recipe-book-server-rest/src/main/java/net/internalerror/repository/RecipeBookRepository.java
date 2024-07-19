@@ -14,4 +14,12 @@ public class RecipeBookRepository extends CrudRepository<RecipeBook, Integer> {
         super(dslContext, RECIPE_BOOK, RECIPE_BOOK.ID, Integer.class);
     }
 
+    public boolean existsByIdentifier(String identifier) {
+        return exists(RECIPE_BOOK.IDENTIFIER.eq(identifier));
+    }
+
+    public RecipeBook getByIdentifier(String identifier) {
+        return get(RECIPE_BOOK.IDENTIFIER.eq(identifier));
+    }
+
 }
