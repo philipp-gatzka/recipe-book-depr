@@ -2,10 +2,9 @@ package net.internalerror.rest.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.internalerror.rest.endpoint.AuthEndpoint;
 import net.internalerror.exception.BadRequestException;
-import net.internalerror.helper.DataHelper;
 import net.internalerror.repository.UserRepository;
+import net.internalerror.rest.endpoint.AuthEndpoint;
 import net.internalerror.rest.service.AuthService;
 import net.internalerror.tables.records.User;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +27,9 @@ public class AuthController implements AuthEndpoint {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final DataHelper dataHelper;
-
     @Override
     public void register(RegisterRequest request) {
-        if (dataHelper.userExists(request.email())) {
+        if (userRepository.existsByEmail(request.email())) {
             throw new BadRequestException(EMAIL_IS_ALREADY_REGISTERED);
         }
 
@@ -41,11 +38,11 @@ public class AuthController implements AuthEndpoint {
 
     @Override
     public void verifyEmail(VerifyEmailRequest request) {
-        if (!dataHelper.userExists(request.email())) {
+        if (!userRepository.existsByEmail(request.email())) {
             throw new BadRequestException(EMAIL_IS_NOT_REGISTERED);
         }
 
-        if (dataHelper.userIsVerified(request.email())) {
+        if (userRepository.getByEmail(request.email()).getEmailVerificationCode() == null) {
             throw new BadRequestException(EMAIL_IS_ALREADY_VERIFIED);
         }
 
@@ -59,11 +56,11 @@ public class AuthController implements AuthEndpoint {
 
     @Override
     public ResponseEntity<LoginResponse> login(LoginRequest request) {
-        if (!dataHelper.userExists(request.email())) {
+        if (!userRepository.existsByEmail(request.email())) {
             throw new BadRequestException(EMAIL_IS_NOT_REGISTERED);
         }
 
-        if (!dataHelper.userIsVerified(request.email())) {
+        if (userRepository.getByEmail(request.email()).getEmailVerificationCode() != null) {
             throw new BadRequestException(EMAIL_IS_NOT_VERIFIED);
         }
 
@@ -72,11 +69,11 @@ public class AuthController implements AuthEndpoint {
 
     @Override
     public void requestUpdatePassword(RequestUpdatePasswordRequest request) {
-        if (!dataHelper.userExists(request.email())) {
+        if (!userRepository.existsByEmail(request.email())) {
             throw new BadRequestException(EMAIL_IS_NOT_REGISTERED);
         }
 
-        if (!dataHelper.userIsVerified(request.email())) {
+        if (userRepository.getByEmail(request.email()).getEmailVerificationCode() != null) {
             throw new BadRequestException(EMAIL_IS_NOT_VERIFIED);
         }
 
@@ -85,11 +82,11 @@ public class AuthController implements AuthEndpoint {
 
     @Override
     public void updatePassword(UpdatePasswordRequest request) {
-        if (!dataHelper.userExists(request.email())) {
+        if (!userRepository.existsByEmail(request.email())) {
             throw new BadRequestException(EMAIL_IS_NOT_REGISTERED);
         }
 
-        if (!dataHelper.userIsVerified(request.email())) {
+        if (userRepository.getByEmail(request.email()).getEmailVerificationCode() != null) {
             throw new BadRequestException(EMAIL_IS_NOT_VERIFIED);
         }
 

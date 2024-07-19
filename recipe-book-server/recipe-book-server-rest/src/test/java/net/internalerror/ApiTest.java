@@ -133,7 +133,7 @@ public class ApiTest {
 
     @AfterEach
     public void dropDatabase() {
-        Table<?>[] tables = {INGREDIENT, RECIPE_BOOK_MEMBERSHIP, RECIPE_BOOK, USER};
+        Table<?>[] tables = {RECIPE_BOOK_MEMBER, RECIPE_BOOK, USER};
 
         for (Table<?> table : tables) {
             dslContext.dropTable(table).execute();

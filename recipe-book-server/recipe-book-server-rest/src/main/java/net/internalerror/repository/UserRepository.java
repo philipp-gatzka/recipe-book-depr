@@ -22,5 +22,4 @@ public class UserRepository extends CrudRepository<User, Integer> {
         return get(USER.EMAIL.eq(email));
     }
 
-
 }
